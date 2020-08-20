@@ -1,0 +1,12 @@
+/build/
+/.gradle/
+/.nb-gradle/
+/.nb-gradle-properties
+/.settings/
+/config/
+**/application.properties
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
