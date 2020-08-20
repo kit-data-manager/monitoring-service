@@ -24,7 +24,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 jar {
-    baseName = 'template'
+    baseName = 'admin-service'
     version =  '0.1'
 }
 
@@ -55,8 +55,11 @@ if (project.hasProperty('travis')) {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-rest")
- 
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-mail")
+    implementation("de.codecentric:spring-boot-admin-starter-server:2.2.4")
+    
     //Java 11 Support 
     implementation 'javax.xml.bind:jaxb-api:2.3.1'
     implementation 'com.sun.xml.bind:jaxb-core:2.3.0.1'

@@ -7,10 +7,6 @@ ext {
 test { 
    outputs.dir snippetsDir
 }
-
-dependencies {
-   compile("edu.kit.datamanager:generic-message-consumer:0.1")
-}
    
 asciidoctor {
    attributes "snippets": snippetsDir,
@@ -24,7 +20,6 @@ asciidoctor {
 
 test {
    environment "spring.config.location", "classpath:/config/"
-   include '**/*DataResourceControllerDocumentationTest*'
 }
 
 tasks.withType(Test) {
