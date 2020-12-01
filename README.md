@@ -2,6 +2,8 @@
 
 ![Build Status](https://img.shields.io/travis/kit-data-manager/monitoring-service.svg)
 ![License](https://img.shields.io/github/license/kit-data-manager/monitoring-service.svg)
+![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/kitdm/monitoring-service)
+![Docker Image Version (latest semver)](https://img.shields.io/docker/v/kitdm/monitoring-service)
 
 This project provides a service monitoring Spring Boot Microservices. It is based on [Spring Boot Admin](https://github.com/codecentric/spring-boot-admin).
 
