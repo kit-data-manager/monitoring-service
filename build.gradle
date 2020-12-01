@@ -24,7 +24,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 jar {
-    baseName = 'admin-service'
+    baseName = 'monitoring-service'
     version =  '0.1'
 }
 
