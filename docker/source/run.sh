@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd /admin-service
-java -cp ".:./config:./admin-service.jar" -Dloader.path=file://`pwd`/admin-service.jar,./lib/,. -jar admin-service.jar
+cd /monitoring-service
+java -cp ".:./config:./monitoring-service.jar" -Dloader.path=file://`pwd`/monitoring-service.jar,./lib/,. -jar monitoring-service.jar
