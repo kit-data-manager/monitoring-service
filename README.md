@@ -18,7 +18,7 @@ user@localhost:/home/user/monitoring-service$ ./gradlew build
 > Configure project :
 <-------------> 0% EXECUTING [0s]
 [...]
-user@localhost:/home/user/admin-service$
+user@localhost:/home/user/monitoring-service$
 ```
 
 The Gradle wrapper will now take care of downloading the configured version of Gradle, checking out all required libraries, build these
