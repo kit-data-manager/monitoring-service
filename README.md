@@ -30,7 +30,9 @@ libraries and finally build the monitoring-service itself. As a result, a fat ja
 
 ### Setup
 Before you are able to start the microservice, you may modify the default 'application.properties' according to your local setup. 
-Therefor, copy and rename the file 'config/application-default.properties' to 'application.properties' in your project folder and customize it. You may change the server.port property. All other properties can be ignored for the time being.
+Therefor, copy and rename the file 'config/application-default.properties' to 'application.properties' in your project folder and customize it.
+
+:warning: It is highly recommended, to modify the settings in the section 'Spring Boot Admin' at the end of the file, e.g. spring.security.user.* for security reasons. 
 
 As soon as you finished modifying 'application.properties', you may start the Monitoring Service by executing the following command inside the project folder, 
 e.g. where the service has been built before:
