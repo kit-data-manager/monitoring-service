@@ -21,11 +21,13 @@ import org.keycloak.admin.client.KeycloakBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
@@ -35,9 +37,11 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-//@KeycloakConfiguration
-//@EnableConfigurationProperties(KeycloakSpringBootProperties.class)
-class KeycloakConfig extends KeycloakWebSecurityConfigurerAdapter {
+@Configuration
+@EnableWebSecurity
+@KeycloakConfiguration
+@EnableConfigurationProperties(KeycloakSpringBootProperties.class)
+public class KeycloakConfig extends KeycloakWebSecurityConfigurerAdapter {
 
     /**
      * {@link HttpHeadersProvider} used to populate the {@link HttpHeaders} for
@@ -56,27 +60,11 @@ class KeycloakConfig extends KeycloakWebSecurityConfigurerAdapter {
         };
     }
 
-    /**
-     * The Keycloak Admin client that provides the service-account Access-Token
-     *
-     * @param props
-     * @return
-     */
-    @Bean
-    public Keycloak keycloak(KeycloakSpringBootProperties props) {
-        return KeycloakBuilder.builder() //
-                .serverUrl(props.getAuthServerUrl()) //
-                .realm(props.getRealm()) //
-                .grantType(OAuth2Constants.CLIENT_CREDENTIALS) //
-                .clientId(props.getResource()) //
-                .clientSecret((String) props.getCredentials().get("secret")) //
-                .build();
-    }
+   
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
-
         http //
                 .csrf().disable() // for the sake of brevity...
                 .authorizeRequests() //
@@ -86,16 +74,7 @@ class KeycloakConfig extends KeycloakWebSecurityConfigurerAdapter {
                 ;
     }
 
-    /**
-     * Load Keycloak configuration from application.properties or
-     * application.yml
-     *
-     * @return
-     */
-    @Bean
-    public KeycloakConfigResolver keycloakConfigResolver() {
-        return new KeycloakSpringBootConfigResolver();
-    }
+
 
     /**
      * Use {@link KeycloakAuthenticationProvider}
@@ -142,7 +121,6 @@ class KeycloakConfig extends KeycloakWebSecurityConfigurerAdapter {
     @Bean
     @Scope(scopeName = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
     public KeycloakSecurityContext provideKeycloakSecurityContext() {
-
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         Principal principal = attributes.getRequest().getUserPrincipal();
         if (principal == null) {

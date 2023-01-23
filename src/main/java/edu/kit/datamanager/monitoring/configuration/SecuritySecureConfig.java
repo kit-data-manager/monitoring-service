@@ -15,9 +15,9 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
  *
  * @author Torridity
  */
-@Configuration
-public class SecuritySecureConfig extends WebSecurityConfigurerAdapter {
-
+//@Configuration
+public class SecuritySecureConfig {//extends WebSecurityConfigurerAdapter {
+/*
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         SavedRequestAwareAuthenticationSuccessHandler successHandler
@@ -39,5 +39,5 @@ public class SecuritySecureConfig extends WebSecurityConfigurerAdapter {
                         "/instances",
                         "/actuator/**"
                 );
-    }
+    }*/
 }

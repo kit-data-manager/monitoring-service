@@ -7,12 +7,15 @@ package edu.kit.datamanager.monitoring.controller;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
- * @author Torridity
+ * @author jejkal
  */
-//@Controller
+@Controller
+@RequestMapping(value = "/")
 class KeycloakController {
 
     /**
@@ -22,8 +25,9 @@ class KeycloakController {
      * @return
      * @throws Exception
      */
-    @PostMapping("/admin/logout")
+    @RequestMapping(value = "/admin/logout", method = RequestMethod.POST)
     public String logout(HttpServletRequest request) throws Exception {
+        System.out.println("LOGOUT");
         request.logout();
         return "redirect:/admin";
     }

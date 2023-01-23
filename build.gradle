@@ -56,8 +56,8 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-mail"
     implementation "de.codecentric:spring-boot-admin-starter-server:2.7.10"
     implementation "org.springframework.cloud:spring-cloud-starter"
-   //implementation "org.keycloak:keycloak-spring-boot-starter:${keycloakVersion}"
-   //implementation "org.keycloak:keycloak-admin-client:${keycloakVersion}"
+    implementation "org.keycloak:keycloak-spring-boot-starter:${keycloakVersion}"
+    implementation "org.keycloak:keycloak-admin-client:${keycloakVersion}"
 
  
     //Java 11 Support 
@@ -69,7 +69,7 @@ dependencies {
 }
 
 dependencyManagement {
-    //imports { mavenBom("org.keycloak.bom:keycloak-adapter-bom:${keycloakVersion}") }
+    imports { mavenBom("org.keycloak.bom:keycloak-adapter-bom:${keycloakVersion}") }
     imports { mavenBom("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}") }
 }
 

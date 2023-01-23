@@ -16,11 +16,24 @@
 package edu.kit.datamanager.monitoring;
 
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
+import io.netty.handler.ssl.SslContextBuilder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.http.client.reactive.ClientHttpConnector;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
+import reactor.netty.http.client.HttpClient;
+import edu.kit.datamanager.monitoring.configuration.KeycloakConfig;
+import org.keycloak.OAuth2Constants;
+import org.keycloak.adapters.KeycloakConfigResolver;
+import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
+import org.keycloak.adapters.springboot.KeycloakSpringBootProperties;
+import org.keycloak.admin.client.Keycloak;
+import org.keycloak.admin.client.KeycloakBuilder;
 
 /**
  *
@@ -29,12 +42,49 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableAutoConfiguration
 @EnableAdminServer
-//@Import({SecuritySecureConfig.class})
-@ComponentScan({"edu.kit.datamanager.admin"})
+@ComponentScan({"edu.kit.datamanager"})
 public class Application {
 
     public static void main(String[] args) {
         ApplicationContext ctx = SpringApplication.run(Application.class, args);
+    }
+
+    /**
+     * The Keycloak Admin client that provides the service-account Access-Token
+     *
+     * @param props
+     * @return
+     */
+    @Bean
+    public Keycloak keycloak(KeycloakSpringBootProperties props) {
+        return KeycloakBuilder.builder() //
+                .serverUrl(props.getAuthServerUrl()) //
+                .realm(props.getRealm()) //
+                .grantType(OAuth2Constants.CLIENT_CREDENTIALS) //
+                .clientId(props.getResource()) //
+                .clientSecret((String) props.getCredentials().get("secret")) //
+                .build();
+    }
+
+    /**
+     * Load Keycloak configuration from application.properties or
+     * application.yml
+     *
+     * @return
+     */
+    @Bean
+    public KeycloakConfigResolver keycloakConfigResolver() {
+        return new KeycloakSpringBootConfigResolver();
+    }
+
+    @Bean
+    public ClientHttpConnector customHttpClient() {
+        SslContextBuilder sslContext = SslContextBuilder.forClient();
+        //Your sslContext customizations go here
+        HttpClient httpClient = HttpClient.create().secure(
+                ssl -> ssl.sslContext(sslContext)
+        );
+        return new ReactorClientHttpConnector(httpClient);
     }
 
 }
