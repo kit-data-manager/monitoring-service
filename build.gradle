@@ -33,6 +33,7 @@ ext {
     set('springDocVersion', "1.6.9")
     set('keycloakVersion', "19.0.0")
     set('springCloudVersion', "2021.0.3")
+      set('resteasyVersion', "6.2.2.Final")
 
     // directory for generated code snippets during tests
     snippetsDir = file("build/generated-snippets")
@@ -56,9 +57,11 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-mail"
     implementation "de.codecentric:spring-boot-admin-starter-server:2.7.10"
     implementation "org.springframework.cloud:spring-cloud-starter"
-    implementation "org.keycloak:keycloak-spring-boot-starter:${keycloakVersion}"
-    implementation "org.keycloak:keycloak-admin-client:${keycloakVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-oauth2-client"
+    //implementation "org.keycloak:keycloak-spring-boot-starter:${keycloakVersion}"
+    //implementation "org.keycloak:keycloak-admin-client:${keycloakVersion}"
 
+   
  
     //Java 11 Support 
     implementation "javax.xml.bind:jaxb-api:2.3.1"
