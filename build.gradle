@@ -58,8 +58,8 @@ dependencies {
     implementation "de.codecentric:spring-boot-admin-starter-server:2.7.10"
     implementation "org.springframework.cloud:spring-cloud-starter"
     implementation "org.springframework.boot:spring-boot-starter-oauth2-client"
-    //implementation "org.keycloak:keycloak-spring-boot-starter:${keycloakVersion}"
-    //implementation "org.keycloak:keycloak-admin-client:${keycloakVersion}"
+    implementation "org.keycloak:keycloak-spring-boot-starter:${keycloakVersion}"
+    implementation "org.keycloak:keycloak-admin-client:${keycloakVersion}"
 
    
  

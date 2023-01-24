@@ -16,6 +16,12 @@
 package edu.kit.datamanager.monitoring;
 
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
+import org.keycloak.OAuth2Constants;
+import org.keycloak.adapters.KeycloakConfigResolver;
+import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
+import org.keycloak.adapters.springboot.KeycloakSpringBootProperties;
+import org.keycloak.admin.client.Keycloak;
+import org.keycloak.admin.client.KeycloakBuilder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.ApplicationContext;
@@ -43,33 +49,33 @@ public class Application{
     return new RestTemplate();
   }
 
-//    /**
-//     * The Keycloak Admin client that provides the service-account Access-Token
-//     *
-//     * @param props
-//     * @return
-//     */
-//    @Bean
-//    public Keycloak keycloak(KeycloakSpringBootProperties props) {
-//        return KeycloakBuilder.builder() //
-//                .serverUrl(props.getAuthServerUrl()) //
-//                .realm(props.getRealm()) //
-//                .grantType(OAuth2Constants.CLIENT_CREDENTIALS) //
-//                .clientId(props.getResource()) //
-//                .clientSecret((String) props.getCredentials().get("secret")) //
-//                .build();
-//    }
-//
-//    /**
-//     * Load Keycloak configuration from application.properties or
-//     * application.yml
-//     *
-//     * @return
-//     */
-//    @Bean
-//    public KeycloakConfigResolver keycloakConfigResolver() {
-//        return new KeycloakSpringBootConfigResolver();
-//    }
+    /**
+     * The Keycloak Admin client that provides the service-account Access-Token
+     *
+     * @param props
+     * @return
+     */
+    @Bean
+    public Keycloak keycloak(KeycloakSpringBootProperties props) {
+        return KeycloakBuilder.builder() //
+                .serverUrl(props.getAuthServerUrl()) //
+                .realm(props.getRealm()) //
+                .grantType(OAuth2Constants.CLIENT_CREDENTIALS) //
+                .clientId(props.getResource()) //
+                .clientSecret((String) props.getCredentials().get("secret")) //
+                .build();
+    }
+
+    /**
+     * Load Keycloak configuration from application.properties or
+     * application.yml
+     *
+     * @return
+     */
+    @Bean
+    public KeycloakConfigResolver keycloakConfigResolver() {
+        return new KeycloakSpringBootConfigResolver();
+    }
 
   /*@Bean
     public ClientHttpConnector customHttpClient() {
